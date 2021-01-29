@@ -1,11 +1,6 @@
-## My Project
+## FLeX Networking France
 
-TODO: Fill this README out!
-
-Be sure to:
-
-* Change the title in this README
-* Edit your repository description on GitHub
+This repository is used to host the various immersion days run by the french team in 2021 and beyond.
 
 ## Security
 

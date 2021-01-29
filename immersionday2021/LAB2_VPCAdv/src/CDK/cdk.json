@@ -1,0 +1,11 @@
+{
+  "app": "python3 app.py",
+  "context": {
+    "@aws-cdk/core:enableStackNameDuplicates": "true",
+    "aws-cdk:enableDiffNoFail": "true",
+    "@aws-cdk/core:stackRelativeExports": "true",
+    "instance_type": "c5.4xlarge",
+    "region": "eu-west-3",
+    "AWS_account": "514137736852"
+  }
+}

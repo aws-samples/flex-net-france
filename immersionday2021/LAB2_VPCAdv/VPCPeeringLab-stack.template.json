@@ -1,0 +1,723 @@
+{
+  "Resources": {
+    "VPC1010016E04FDAD0": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.1.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.1.0.0--16"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.1.0.0--16/Resource"
+      }
+    },
+    "VPC1010016PublicSubnet1Subnet13538FF8": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.1.0.0/17",
+        "VpcId": {
+          "Ref": "VPC1010016E04FDAD0"
+        },
+        "AvailabilityZone": "eu-west-3a",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          },
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PublicSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PublicSubnet1/Subnet"
+      }
+    },
+    "VPC1010016PublicSubnet1RouteTable2FB00008": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC1010016E04FDAD0"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PublicSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PublicSubnet1/RouteTable"
+      }
+    },
+    "VPC1010016PublicSubnet1RouteTableAssociationECEE7B5D": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VPC1010016PublicSubnet1RouteTable2FB00008"
+        },
+        "SubnetId": {
+          "Ref": "VPC1010016PublicSubnet1Subnet13538FF8"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PublicSubnet1/RouteTableAssociation"
+      }
+    },
+    "VPC1010016PublicSubnet1DefaultRoute377EA763": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VPC1010016PublicSubnet1RouteTable2FB00008"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "VPC1010016IGWC4206496"
+        }
+      },
+      "DependsOn": [
+        "VPC1010016VPCGWF17A249C"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PublicSubnet1/DefaultRoute"
+      }
+    },
+    "VPC1010016PublicSubnet1EIP5FEEB6C7": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PublicSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PublicSubnet1/EIP"
+      }
+    },
+    "VPC1010016PublicSubnet1NATGateway8A58CEC7": {
+      "Type": "AWS::EC2::NatGateway",
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "VPC1010016PublicSubnet1EIP5FEEB6C7",
+            "AllocationId"
+          ]
+        },
+        "SubnetId": {
+          "Ref": "VPC1010016PublicSubnet1Subnet13538FF8"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PublicSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PublicSubnet1/NATGateway"
+      }
+    },
+    "VPC1010016PrivateSubnet1SubnetF5EAB8C6": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.1.128.0/17",
+        "VpcId": {
+          "Ref": "VPC1010016E04FDAD0"
+        },
+        "AvailabilityZone": "eu-west-3a",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private"
+          },
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PrivateSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PrivateSubnet1/Subnet"
+      }
+    },
+    "VPC1010016PrivateSubnet1RouteTableA20546F4": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC1010016E04FDAD0"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PrivateSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PrivateSubnet1/RouteTable"
+      }
+    },
+    "VPC1010016PrivateSubnet1RouteTableAssociationB6C1D436": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VPC1010016PrivateSubnet1RouteTableA20546F4"
+        },
+        "SubnetId": {
+          "Ref": "VPC1010016PrivateSubnet1SubnetF5EAB8C6"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PrivateSubnet1/RouteTableAssociation"
+      }
+    },
+    "VPC1010016PrivateSubnet1DefaultRoute2B4552D0": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VPC1010016PrivateSubnet1RouteTableA20546F4"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "VPC1010016PublicSubnet1NATGateway8A58CEC7"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.1.0.0--16/PrivateSubnet1/DefaultRoute"
+      }
+    },
+    "VPC1010016IGWC4206496": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.1.0.0--16"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.1.0.0--16/IGW"
+      }
+    },
+    "VPC1010016VPCGWF17A249C": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC1010016E04FDAD0"
+        },
+        "InternetGatewayId": {
+          "Ref": "VPC1010016IGWC4206496"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.1.0.0--16/VPCGW"
+      }
+    },
+    "VPC10200160AE0383B": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.2.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.2.0.0--16"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.2.0.0--16/Resource"
+      }
+    },
+    "VPC1020016PublicSubnet1Subnet92980897": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.2.0.0/17",
+        "VpcId": {
+          "Ref": "VPC10200160AE0383B"
+        },
+        "AvailabilityZone": "eu-west-3a",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          },
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PublicSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PublicSubnet1/Subnet"
+      }
+    },
+    "VPC1020016PublicSubnet1RouteTable9110AF85": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC10200160AE0383B"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PublicSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PublicSubnet1/RouteTable"
+      }
+    },
+    "VPC1020016PublicSubnet1RouteTableAssociation28B16B1B": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VPC1020016PublicSubnet1RouteTable9110AF85"
+        },
+        "SubnetId": {
+          "Ref": "VPC1020016PublicSubnet1Subnet92980897"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PublicSubnet1/RouteTableAssociation"
+      }
+    },
+    "VPC1020016PublicSubnet1DefaultRouteDB4BECF4": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VPC1020016PublicSubnet1RouteTable9110AF85"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "VPC1020016IGW9CD3E8E5"
+        }
+      },
+      "DependsOn": [
+        "VPC1020016VPCGWE17DA35D"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PublicSubnet1/DefaultRoute"
+      }
+    },
+    "VPC1020016PublicSubnet1EIP074D6645": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PublicSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PublicSubnet1/EIP"
+      }
+    },
+    "VPC1020016PublicSubnet1NATGateway0937015B": {
+      "Type": "AWS::EC2::NatGateway",
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "VPC1020016PublicSubnet1EIP074D6645",
+            "AllocationId"
+          ]
+        },
+        "SubnetId": {
+          "Ref": "VPC1020016PublicSubnet1Subnet92980897"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PublicSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PublicSubnet1/NATGateway"
+      }
+    },
+    "VPC1020016PrivateSubnet1Subnet666003A0": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.2.128.0/17",
+        "VpcId": {
+          "Ref": "VPC10200160AE0383B"
+        },
+        "AvailabilityZone": "eu-west-3a",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private"
+          },
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PrivateSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PrivateSubnet1/Subnet"
+      }
+    },
+    "VPC1020016PrivateSubnet1RouteTable438FBAC7": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC10200160AE0383B"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PrivateSubnet1"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PrivateSubnet1/RouteTable"
+      }
+    },
+    "VPC1020016PrivateSubnet1RouteTableAssociationF34E0AAB": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VPC1020016PrivateSubnet1RouteTable438FBAC7"
+        },
+        "SubnetId": {
+          "Ref": "VPC1020016PrivateSubnet1Subnet666003A0"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PrivateSubnet1/RouteTableAssociation"
+      }
+    },
+    "VPC1020016PrivateSubnet1DefaultRouteC1CF16F9": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VPC1020016PrivateSubnet1RouteTable438FBAC7"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "VPC1020016PublicSubnet1NATGateway0937015B"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.2.0.0--16/PrivateSubnet1/DefaultRoute"
+      }
+    },
+    "VPC1020016IGW9CD3E8E5": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/VPC-10.2.0.0--16"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.2.0.0--16/IGW"
+      }
+    },
+    "VPC1020016VPCGWE17DA35D": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC10200160AE0383B"
+        },
+        "InternetGatewayId": {
+          "Ref": "VPC1020016IGW9CD3E8E5"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/VPC-10.2.0.0--16/VPCGW"
+      }
+    },
+    "InstanceSSMCBFA3CF0": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ec2.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/AmazonSSMManagedInstanceCore"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/InstanceSSM/Resource"
+      }
+    },
+    "SG1VPCPeeringLab8AF79545": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "VPCPeeringLab-stack/SG1--VPCPeeringLab",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "from 0.0.0.0/0:ALL PORTS",
+            "FromPort": 0,
+            "IpProtocol": "tcp",
+            "ToPort": 65535
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "from 0.0.0.0/0:ALL ICMP",
+            "FromPort": -1,
+            "IpProtocol": "icmp",
+            "ToPort": -1
+          }
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "from 0.0.0.0/0:ALL ICMP",
+            "FromPort": -1,
+            "IpProtocol": "icmp",
+            "ToPort": -1
+          }
+        ],
+        "VpcId": {
+          "Ref": "VPC1010016E04FDAD0"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/SG1--VPCPeeringLab/Resource"
+      }
+    },
+    "SG2VPCPeeringLabCC9C833A": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "VPCPeeringLab-stack/SG2--VPCPeeringLab",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "from 0.0.0.0/0:ALL PORTS",
+            "FromPort": 0,
+            "IpProtocol": "tcp",
+            "ToPort": 65535
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "from 0.0.0.0/0:ALL ICMP",
+            "FromPort": -1,
+            "IpProtocol": "icmp",
+            "ToPort": -1
+          }
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "from 0.0.0.0/0:ALL ICMP",
+            "FromPort": -1,
+            "IpProtocol": "icmp",
+            "ToPort": -1
+          }
+        ],
+        "VpcId": {
+          "Ref": "VPC10200160AE0383B"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/SG2--VPCPeeringLab/Resource"
+      }
+    },
+    "InstanceAInstanceProfile4180B062": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "InstanceSSMCBFA3CF0"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/Instance A/InstanceProfile"
+      }
+    },
+    "InstanceA91278A9C": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "AvailabilityZone": "eu-west-3a",
+        "IamInstanceProfile": {
+          "Ref": "InstanceAInstanceProfile4180B062"
+        },
+        "ImageId": {
+          "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+        },
+        "InstanceType": "t3.nano",
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "SG1VPCPeeringLab8AF79545",
+              "GroupId"
+            ]
+          }
+        ],
+        "SubnetId": {
+          "Ref": "VPC1010016PrivateSubnet1SubnetF5EAB8C6"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/Instance A"
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": "#!/bin/bash"
+        }
+      },
+      "DependsOn": [
+        "InstanceSSMCBFA3CF0"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/Instance A/Resource"
+      }
+    },
+    "InstanceBInstanceProfileA6DE6DB0": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "InstanceSSMCBFA3CF0"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/Instance B/InstanceProfile"
+      }
+    },
+    "InstanceB3D96D56C": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "AvailabilityZone": "eu-west-3a",
+        "IamInstanceProfile": {
+          "Ref": "InstanceBInstanceProfileA6DE6DB0"
+        },
+        "ImageId": {
+          "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+        },
+        "InstanceType": "t3.nano",
+        "SecurityGroupIds": [
+          {
+            "Fn::GetAtt": [
+              "SG2VPCPeeringLabCC9C833A",
+              "GroupId"
+            ]
+          }
+        ],
+        "SubnetId": {
+          "Ref": "VPC1020016PrivateSubnet1Subnet666003A0"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPCPeeringLab-stack/Instance B"
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": "#!/bin/bash"
+        }
+      },
+      "DependsOn": [
+        "InstanceSSMCBFA3CF0"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/Instance B/Resource"
+      }
+    },
+    "CDKMetadata": {
+      "Type": "AWS::CDK::Metadata",
+      "Properties": {
+        "Modules": "aws-cdk=1.67.0,@aws-cdk/assets=1.67.0,@aws-cdk/aws-cloudwatch=1.67.0,@aws-cdk/aws-ec2=1.67.0,@aws-cdk/aws-events=1.67.0,@aws-cdk/aws-iam=1.67.0,@aws-cdk/aws-kms=1.67.0,@aws-cdk/aws-logs=1.67.0,@aws-cdk/aws-s3=1.67.0,@aws-cdk/aws-s3-assets=1.67.0,@aws-cdk/aws-ssm=1.67.0,@aws-cdk/cloud-assembly-schema=1.67.0,@aws-cdk/core=1.67.0,@aws-cdk/cx-api=1.67.0,@aws-cdk/region-info=1.67.0,jsii-runtime=Python/3.8.3"
+      },
+      "Metadata": {
+        "aws:cdk:path": "VPCPeeringLab-stack/CDKMetadata/Default"
+      }
+    }
+  },
+  "Outputs": {
+    "VPC1": {
+      "Value": {
+        "Ref": "VPC1010016E04FDAD0"
+      }
+    },
+    "VPC2": {
+      "Value": {
+        "Ref": "VPC10200160AE0383B"
+      }
+    },
+    "InstanceA": {
+      "Value": {
+        "Ref": "InstanceA91278A9C"
+      }
+    },
+    "InstanceB": {
+      "Value": {
+        "Ref": "InstanceB3D96D56C"
+      }
+    }
+  },
+  "Parameters": {
+    "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter": {
+      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+      "Default": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+    }
+  }
+}

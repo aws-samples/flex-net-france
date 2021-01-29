@@ -36,7 +36,7 @@ Each instance is deployed in its own VPC on a private subnet inside an Availabil
 
  ![img](img/clip_image007.png)
 
-**Step 7 :** Download the [CloudFormation template here](https://raw.githubusercontent.com/wolruf/immersionday2021/master/LAB2_VPCAdv/VPCPeeringLab-stack.template.json)
+**Step 7 :** Download the [CloudFormation template here](https://raw.githubusercontent.com/aws-samples/flex-net-france/main/immersionday2021/LAB2_VPCAdv/VPCPeeringLab-stack.template.json)
 
 **Step 8 :** And select the downloaded file *VPCPeeringLab-stack.template.json*
 

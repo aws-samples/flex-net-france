@@ -328,7 +328,7 @@ We need to create an IAM role to have access to the instances
 
 **Step 46 :** Click on "Edit Security Groups", and add a new rule for "All ICMP - IPv4" from 0.0.0.0/0 and also "http" with the source 0.0.0.0/0 It will helps for our ping tests.
 
-![](img/InstanceStep2.PNG)
+![](img/InstanceStep2.jpg)
 
 **Step 47 :** Click on “Review and Launch.” 
 
